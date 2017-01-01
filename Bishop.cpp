@@ -65,4 +65,7 @@ bool Bishop::movePiece(int r1, int c1, int r2, int c2)
 		return false;
 
 	return true;
+
+	//TODO: BUG!! Diagonal movement is only in positive diagonal direction
+
 }
