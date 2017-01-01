@@ -1,38 +1,38 @@
 /*
- * Pawn.h
- *
- *  Created on: Dec 30, 2016
- *      Author: helarabawy
- */
+* Pawn.h
+*
+*  Created on: Dec 30, 2016
+*      Author: helarabawy
+*/
 
 #ifndef PAWN_H_
 #define PAWN_H_
 
-	// including Piece header
-	#include "Piece.h"
+// including Piece header
+#include "Piece.h"
 
-	class Pawn : public Piece
-	{
-		public:
+class Pawn : public Piece
+{
+	public:
 
-			// Constructor
-			Pawn(int player, Grid* grid);
+		// Constructor
+		Pawn(char player, Grid* grid);
 
-			// Deconstructor
-			~Pawn();
+		// Deconstructor
+		~Pawn();
 
-			// Public functions
-			char getType();
-			char getPlayer();
-			bool movePiece(int r1, int c1, int r2, int c2);
+		// Public functions
+		char getType();
+		char getPlayer();
+		bool movePiece(int r1, int c1, int r2, int c2);
 
-		private:
+	private:
 
-			// Private variables
-			Grid* gridptr;
-			char m_type;
-			char m_player;
-	};
+		// Private variables
+		Grid* gridptr;
+		char m_type;
+		char m_player;
+};
 
 
 #endif /* PAWN_H_ */

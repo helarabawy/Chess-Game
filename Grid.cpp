@@ -46,6 +46,7 @@ Grid::~Grid()
 		{
 			for (int c = 0; c < 10; c++)
 			{
+				delete grid[r][c];
 				grid[r][c] = NULL;
 			}
 		}
@@ -54,7 +55,7 @@ Grid::~Grid()
 // to set up chess board
 void Grid::setUp()
 {
-	// locating each player's respective pawns
+	// PAWNS
 	for (int i = 1; i <= 8; i++)
 	{
 		grid[2][i] = new Pawn(PLAYER_BLACK, this);
@@ -106,28 +107,35 @@ void Grid::setUp()
 
 		// locating white king
 		grid[8][5] = new King(PLAYER_WHITE, this);
+
+	// Initializing respective piece counts
+		m_nBlack = 16;
+		m_nWhite = 16;
 }
 
 // to display grid
 void Grid::display()
 {
 	char index;
+
 	// top row
-	cout << "  ";
+	cout << " ";
 	for (int i = 0; i < NUM_COLS; i++)
 	{
 		index = 'a' + i;
-		cout << index << "   ";
+		cout << index << "  ";
 	}
 
 	cout << endl;
 
+	// first col of indices
 	for (int i = 1; i <= NUM_ROWS; i++)
 	{
 		cout << i;
 		for (int j = 1; j <= NUM_COLS; j++)
 		{
 			cout << " ";
+			// content of grid
 			if (grid[i][j] == NULL)
 				cout << "* ";
 			else
@@ -151,8 +159,8 @@ int Grid::makeMove(string input, int player)
 
 	// input content does not follow syntax
 	if (!isalpha(input.at(0)) ||
+		!isdigit(input.at(1)) ||
 	    !isalpha(input.at(3)) ||
-	    !isdigit(input.at(1)) ||
 	    !isdigit(input.at(4)) ||
 	    input.at(2) != ' ')
 	{
@@ -165,6 +173,12 @@ int Grid::makeMove(string input, int player)
 
 	r2 = input.at(4);
 	c1 = tolower(input.at(3)) - 'a' + 1;
+
+	// no piece at r1, c1
+	if (grid[r1][c1] == NULL)
+	{
+		return INVALID_INPUT;
+	}
 
 	// input content moving wrong piece
 	if (player != grid[r1][c1]->getPlayer())
@@ -186,6 +200,13 @@ int Grid::makeMove(string input, int player)
 
 	if (hasMoved)
 	{
+		if (grid[r2][c2] != NULL)
+		{
+			if (player == PLAYER_WHITE)
+				m_nBlack--;
+			if (player == PLAYER_BLACK)
+				m_nWhite--;
+		}
 		// make move
 		grid[r2][c2] = grid[r1][c1];
 		grid[r1][c1] = NULL;
@@ -201,12 +222,13 @@ int Grid::makeMove(string input, int player)
 string Grid::getCellInfo(int r, int c)
 {
 	string info = "";
+
 	// blank if there isn't a piece at that pos
 	if (grid[r][c] == NULL)
 		return info;
 
 	// info in the form of player then type
-	// ex. "bp" at in black pawn
+	// ex. "bP" at in black pawn
 	info += grid[r][c]->getPlayer();
 	info += toupper(grid[r][c]->getType());
 
@@ -217,17 +239,6 @@ string Grid::getCellInfo(int r, int c)
 //returns if game is over
 bool Grid::isDone()
 {
-	for (int r = 1; r <= NUM_ROWS; r++)
-	{
-		for (int c = 1; c <= NUM_COLS; c++)
-		{
-			if (grid[r][c]->getPlayer() == 'w')
-				m_nWhite++;
-			if (grid[r][c]->getPlayer() == 'b')
-				m_nBlack++;
-		}
-	}
-
 	if (m_nWhite == 0 || m_nBlack == 0)
 		return true;
 	return false;

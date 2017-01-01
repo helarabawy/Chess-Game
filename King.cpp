@@ -10,21 +10,18 @@
 
 
 // Constructor
-King::King(int player, Grid* grid)
+King::King(char player, Grid* grid)
 {
-	if (player == PLAYER_WHITE)
-		m_player = 'w';
-	if (player == PLAYER_BLACK)
-		m_player = 'b';
-
+	m_player = player;
 	m_type = 'P';
-
 	gridptr = grid;
 }
 
 // Destructor
 King::~King()
-{}
+{
+	delete gridptr;
+}
 
 // Return piece's type
 char King::getType()
@@ -44,16 +41,18 @@ bool King::movePiece(int r1, int c1, int r2, int c2)
 	int rdiff = abs(r2 - r1);
 	int cdiff = abs(c2 - c1);
 
+	// can only move one step
 	if (rdiff > 1 || cdiff > 1)
 	{
 		return false;
 	}
 
+	// cannot remove one's own piece
 	if (gridptr->getCellInfo(r2,c2).at(0) == m_player)
 	{
 		return false;
 	}
-	//todo: dont forget to check if the king is taking out a piece of the other type
+
 	return true;
 }
 

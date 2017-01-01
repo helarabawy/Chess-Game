@@ -4,8 +4,9 @@
  *  Created on: Dec 22, 2016
  *      Author: helarabawy
  */
-#include "../Chess-Game/Game.h"
+#include "Game.h"
 
+// Headers to include
 const static int SUCCESS = 0;
 const static int INVALID_INPUT = 1;
 const static int INVALID_MOVE = 2;
@@ -21,8 +22,9 @@ Game::~Game()
 // Start game of chess
 void Game::start()
 {
+	// declaring variables
 	string input;
-	int player = PLAYER_WHITE;
+	char player = PLAYER_WHITE;
 	int move;
 
 	cout << "Welcome to Chess!" << endl <<

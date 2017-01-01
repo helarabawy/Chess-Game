@@ -10,21 +10,18 @@
 
 
 // Constructor
-Pawn::Pawn(int player, Grid* grid)
+Pawn::Pawn(char player, Grid* grid)
 {
-	if (player == PLAYER_WHITE)
-		m_player = 'w';
-	if (player == PLAYER_BLACK)
-		m_player = 'b';
-
+	m_player = player;
 	m_type = 'P';
-
 	gridptr = grid;
 }
 
 // Destructor
 Pawn::~Pawn()
-{}
+{
+	delete gridptr;
+}
 
 // Return piece's type
 char Pawn::getType()

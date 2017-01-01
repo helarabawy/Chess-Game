@@ -10,21 +10,18 @@
 
 
 // Constructor
-Queen::Queen(int player, Grid* grid)
+Queen::Queen(char player, Grid* grid)
 {
-	if (player == PLAYER_WHITE)
-		m_player = 'w';
-	if (player == PLAYER_BLACK)
-		m_player = 'b';
-
+	m_player = player;
 	m_type = 'P';
-
 	gridptr = grid;
 }
 
 // Destructor
 Queen::~Queen()
-{}
+{
+	delete gridptr;
+}
 
 // Return piece's type
 char Queen::getType()
@@ -41,5 +38,6 @@ char Queen::getPlayer()
 // returns if a move is possible
 bool Queen::movePiece(int r1, int c1, int r2, int c2)
 {
+	return false;
 	//todo: DO MOVE
 }

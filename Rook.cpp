@@ -10,21 +10,18 @@
 
 
 // Constructor
-Rook::Rook(int player, Grid* grid)
+Rook::Rook(char player, Grid* grid)
 {
-	if (player == PLAYER_WHITE)
-		m_player = 'w';
-	if (player == PLAYER_BLACK)
-		m_player = 'b';
-
+	m_player = player;
 	m_type = 'P';
-
 	gridptr = grid;
 }
 
 // Destructor
 Rook::~Rook()
-{}
+{
+	delete gridptr;
+}
 
 // Return piece's type
 char Rook::getType()
@@ -68,8 +65,11 @@ bool Rook::movePiece(int r1, int c1, int r2, int c2)
 		}
 	}
 
+	// cannot remove one's own piece
+	if (gridptr->getCellInfo(r2, c2).at(0) == m_player)
+		return false;
+
 	return true;
-//todo: dont forget to check if the rook is taking out a piece of the other type
 }
 
 

@@ -8,40 +8,40 @@
 #ifndef GAME_H_
 #define GAME_H_
 
-	// Packages to include
-	#include <iostream>
-	#include <string>
-	#include <cctype>
+// Packages to include
+#include <iostream>
+#include <string>
+#include <cctype>
 
-	// Constants
-	const int PLAYER_WHITE = 0;
-	const int PLAYER_BLACK = 1;
+// Constants
+const char PLAYER_WHITE = 'w';
+const char PLAYER_BLACK = 'b';
 
 
-	// Headers to include
-	#include "../Chess-Game/Grid.h"
+// Headers to include
+#include "Grid.h"
 
-	using namespace std;
+using namespace std;
 
-	// Class declaration
-	class Game
-	{
-		public:
+// Class declaration
+class Game
+{
+	public:
 
-			// Constructor
-			Game();
+		// Constructor
+		Game();
 
-			// Destructor
-			~Game();
+		// Destructor
+		~Game();
 
-			// Public functions
-			void start();
+		// Public functions
+		void start();
 
-		private:
+	private:
 
-			// Private variables
-			Grid chessGrid;
-	};
+		// Private variables
+		Grid chessGrid;
+};
 
 
 #endif /* GAME_H_ */

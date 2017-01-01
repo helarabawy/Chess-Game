@@ -6,25 +6,22 @@
  */
 
 // including header file
-#include "../Chess-Game/Knight.h"
+#include "Knight.h"
 
 
 // Constructor
-Knight::Knight(int player, Grid* grid)
+Knight::Knight(char player, Grid* grid)
 {
-	if (player == PLAYER_WHITE)
-		m_player = 'w';
-	if (player == PLAYER_BLACK)
-		m_player = 'b';
-
+	m_player = player;
 	m_type = 'P';
-
 	gridptr = grid;
 }
 
 // Destructor
 Knight::~Knight()
-{}
+{
+	delete gridptr;
+}
 
 // Return piece's type
 char Knight::getType()
@@ -41,6 +38,10 @@ char Knight::getPlayer()
 // returns if a move is possible
 bool Knight::movePiece(int r1, int c1, int r2, int c2)
 {
+	// cannot remove one's own piece
+	if (gridptr->getCellInfo(r2, c2).at(0) == m_player)
+		return false;
+
 	// any L shape is allowed
 	if ( ((abs(r2 - r1) == 2) && (abs(c2 - c1) == 1)) ||
 		 ((abs(r2 - r1) == 1) && (abs(c2 - c1) == 2)) )

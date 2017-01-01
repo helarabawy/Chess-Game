@@ -16,7 +16,7 @@
 		public:
 
 			// Constructor
-			King(int player, Grid* grid);
+			King(char player, Grid* grid);
 
 			// Deconstructor
 			~King();

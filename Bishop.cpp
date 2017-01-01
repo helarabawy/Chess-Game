@@ -10,21 +10,18 @@
 
 
 // Constructor
-Bishop::Bishop(int player, Grid* grid)
+Bishop::Bishop(char player, Grid* grid)
 {
-	if (player == PLAYER_WHITE)
-		m_player = 'w';
-	if (player == PLAYER_BLACK)
-		m_player = 'b';
-
+	m_player = player;
 	m_type = 'P';
-
 	gridptr = grid;
 }
 
 // Destructor
 Bishop::~Bishop()
-{}
+{
+	delete gridptr;
+}
 
 // Return piece's type
 char Bishop::getType()
