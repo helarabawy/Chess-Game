@@ -39,22 +39,35 @@ char Bishop::getPlayer()
 bool Bishop::movePiece(int r1, int c1, int r2, int c2)
 {
 	// calculating horizontal and vertical movement
-	int rdiff = abs(r2 - r1);
-	int cdiff = abs(c2 - c1);
+	int rdiff = r2 - r1;
+	int cdiff = c2 - c1;
+
+	int m, n;
 
 	// movement must be diagonal
-	if (rdiff != cdiff)
+	if (abs(rdiff) != abs(cdiff))
 		return false;
 
 
-	for (int i = 1; i < rdiff; i++)
+	for (int i = 1; i < abs(rdiff); i++)
 	{
-		for (int j = 1; j < cdiff; j++)
+		for (int j = 1; j < abs(cdiff); j++)
 		{
 			if (i == j)
 			{
+				//accounting for movement in negative direction
+				if (rdiff < 0)
+					m = -1 * i;
+				else
+					m = i;
+
+				if (cdiff < 0)
+					n = -1 * j;
+				else
+					n = j;
+
 				// there shouldn't be any pieces along the path
-				if (gridptr->getCellInfo(r1 + i, c1 + j).size() > 0)
+				if (gridptr->getCellInfo(r1 + m, c1 + n).size() > 0)
 					return false;
 			}
 		}
@@ -65,7 +78,5 @@ bool Bishop::movePiece(int r1, int c1, int r2, int c2)
 		return false;
 
 	return true;
-
-	//TODO: BUG!! Diagonal movement is only in positive diagonal direction
 
 }

@@ -38,24 +38,32 @@ char Queen::getPlayer()
 // returns if a move is possible
 bool Queen::movePiece(int r1, int c1, int r2, int c2)
 {
-	int rdiff = abs(r2 - r1);
-	int cdiff = abs(c2 - c1);
+	int rdiff = r2 - r1;
+	int cdiff = c2 - c1;
+
+	int m, n;
 
 	// cannot remove one's own piece
 	if (gridptr->getCellInfo(r2, c2).at(0) == m_player)
 		return false;
 
 	// making sure non-horizontal/non-vertical movement is purely diagonal
-	if ((rdiff > 0 && cdiff > 0) &&
-		(rdiff != cdiff))
+	if ((abs(rdiff) > 0 && abs(cdiff) > 0) &&
+		(abs(rdiff) != abs(cdiff)))
 		return false;
 
 	// horizontal movement
-	if (rdiff == 0 && cdiff > 0)
+	if (abs(rdiff) == 0 && abs(cdiff) > 0)
 	{
-		for (int i = 1; i < cdiff; i++)
+		for (int i = 1; i < abs(cdiff); i++)
 		{
-			if (gridptr->getCellInfo(r1, c1 + i).size() != 0)
+			// accounting for movement in the negative direction
+			if (cdiff < 0)
+				n = -1 * i;
+			else
+				n = i;
+
+			if (gridptr->getCellInfo(r1, c1 + n).size() != 0)
 				return false;
 		}
 
@@ -63,11 +71,17 @@ bool Queen::movePiece(int r1, int c1, int r2, int c2)
 	}
 
 	// vertical movement
-	if (rdiff > 0 && cdiff == 0)
+	if (abs(rdiff) > 0 && abs(cdiff) == 0)
 	{
-		for (int i = 1; i < rdiff; i++)
+		for (int i = 1; i < abs(rdiff); i++)
 		{
-			if (gridptr->getCellInfo(r1 + i, c1).size() != 0)
+			// accounting for movement in the negative direction
+			if (rdiff < 0)
+				m = -1 * i;
+			else
+				m = i;
+
+			if (gridptr->getCellInfo(r1 + m, c1).size() != 0)
 				return false;
 		}
 
@@ -75,21 +89,30 @@ bool Queen::movePiece(int r1, int c1, int r2, int c2)
 	}
 
 	// diagonal movement
-	for (int i = 1; i < rdiff; i++)
+	for (int i = 1; i < abs(rdiff); i++)
 	{
-		for (int j = 1; j < cdiff; j++)
+		for (int j = 1; j < abs(cdiff); j++)
 		{
 			if (i == j)
 			{
+				//accounting for movement in negative direction
+				if (rdiff < 0)
+					m = -1 * i;
+				else
+					m = i;
+
+				if (cdiff < 0)
+					n = -1 * j;
+				else
+					n = j;
+
 				// there shouldn't be any pieces along the path
-				if (gridptr->getCellInfo(r1 + i, c1 + j).size() > 0)
+				if (gridptr->getCellInfo(r1 + m, c1 + n).size() > 0)
 					return false;
 			}
 		}
 	}
 
 	return true;
-
-	//TODO: BUG!! Diagonal movement is only in positive diagonal direction
 
 }
