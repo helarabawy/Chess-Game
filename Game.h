@@ -13,12 +13,8 @@
 #include <string>
 #include <cctype>
 
-// Constants
-const char PLAYER_WHITE = 'w';
-const char PLAYER_BLACK = 'b';
-
-
 // Headers to include
+#include "globals.h"
 #include "Grid.h"
 
 using namespace std;

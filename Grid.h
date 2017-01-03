@@ -8,7 +8,7 @@
 #ifndef GRID_H_
 #define GRID_H_
 
-// Headers to include
+// Packages to include
 #include <iostream>
 #include <string>
 #include <cctype>

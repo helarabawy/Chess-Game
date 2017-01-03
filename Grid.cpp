@@ -5,6 +5,7 @@
  *      Author: helarabawy
  */
 
+// Headers to include
 #include "Grid.h"
 #include "Pawn.h"
 #include "Rook.h"
@@ -12,15 +13,6 @@
 #include "Bishop.h"
 #include "Queen.h"
 #include "King.h"
-
-
-// Constants
-const int NUM_ROWS = 8;
-const int NUM_COLS = 8;
-
-const static int SUCCESS = 0;
-const static int INVALID_INPUT = 1;
-const static int INVALID_MOVE = 2;
 
 // Constructor
 Grid::Grid()

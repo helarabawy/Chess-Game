@@ -6,11 +6,6 @@
  */
 #include "Game.h"
 
-// Headers to include
-const static int SUCCESS = 0;
-const static int INVALID_INPUT = 1;
-const static int INVALID_MOVE = 2;
-
 // Constructor
 Game::Game()
 {}
